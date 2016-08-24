@@ -3,20 +3,15 @@
 namespace PhpGitHooks\Application\Composer;
 
 use Composer\Script\Event;
-use PhpGitHooks\Container;
-use PhpGitHooks\Infrastructure\Composer\ConfiguratorProcessor;
 
-final class ConfiguratorScript
+class ConfiguratorScript
 {
     public static function buildConfig(Event $event)
     {
         if (true === $event->isDevMode()) {
-            $container = new Container();
-            /** @var ConfiguratorProcessor $processor */
-            $processor = $container->get('configurator.processor');
-            $processor->setIO($event->getIO());
-
-            return $processor->process();
+            $message = "Deprecated instalation script!!\n";
+            $message .= "Please replace it by \\PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig\nin your composer.json file";
+            $event->getIO()->writeError(sprintf('<error>%s</error>', $message));
         }
     }
 }
